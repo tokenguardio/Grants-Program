@@ -1,3 +1,4 @@
+
 # Tokenguard: Ultimate growth & data analytics tool for Substrate
 
 
@@ -43,11 +44,9 @@ With the aim of ensuring extensive accessibility across the Substrate community 
 
 
 
-To meet the expectations of Polkadot and Kusama community and the suggestions contained in the RFP, we propose a **comprehensive analytics tool consisting of**  **a query builder, visualization creator and dashboard composer for Polkadot & Kusama ecosystems** - the creation of which requires the implementation of the following areas:
+To meet the expectations of Polkadot and Kusama community and the suggestions contained in the RFP, we propose a **comprehensive analytics tool consisting of**  **a query builder, visualization creator and dashboard composer for Polkadot & Kusama ecosystems** - the creation of which requires the implementation of the following features. 
 
-
-
-
+Features that will be built using this specific grant are **bolded**.
 
 1. Data model:
 	- Creating a RAW data access that would categorize data depending on its depth:
@@ -68,13 +67,15 @@ To meet the expectations of Polkadot and Kusama community and the suggestions co
 		2. List of RAW tables available for these projects
 		3. List of comparable metrics for these projects
 
-4. Dashboards
-	- Making it possible for people to create & share dashboards with their own metrics as well as Tokenguard curated metrics:
-		1. Allowing for choosing how to display a metric (more than 10 types of visualizations available)
-		2. Allowing for adding captions and text in dashboards
-		3. Adding tags to dashboards
-	- Creating a search engine for dashboards
-5. Users
+3. Dashboards
+	- Making it possible for people to create & share dashboards with their own metrics:
+		1. Providing a description and schema of required API response. The response consists of all possible measures and dimensions for future visualization.
+		2. Creating a frontend which allows user to select series of data for axis X and Y for visualization.
+		3. Allowing user to select type of visualization for the data among 5 types (linechart, barchart, piechart, multiline chart, stacked barchart).
+		4. Designing frontend to layout visualizations on canvas (using drag & drop or any other method that is more comfortable for the user).
+		5. Saving dashboard related data on backend to allow frontend transform database metrics into attractive visualisations.
+	
+4. Users
 	- Creating a user subpage with a list of users' dashboards & metrics
  	- Displaying user stats
 
@@ -111,8 +112,6 @@ Filtering - The ability to sort data based on the most useful indicators:<br>
 <img src="https://imagizer.imageshack.com/img924/8639/9qncPN.png" width="800" border="0"><br><br>
 
 
-Custom dashboard creator - The drag and drop feature allows users to create personalized dashboards tailored to their specific needs:<br>
-<img src="https://imagizer.imageshack.com/img922/9135/yU5s5a.png" width="800" border="0"><br><br>
 
 
 User activity analytics - A module that allows for an in-depth analysis of user behavior based on metrics such as DAU, MAU, retention or user segments:<br>
@@ -120,14 +119,15 @@ User activity analytics - A module that allows for an in-depth analysis of user 
 
 #### **Proposal mockups - new standalone features:**
 
-Metric builder - A tool to build metrics in a no-code paradigm:<br>
-<img src="https://imagizer.imageshack.com/img924/4893/u8aKw9.png" width="800" border="0"><br><br>
 
-Query builder - A tool to create & run queries using SQL language:<br>
-<img src="https://imagizer.imageshack.com/img922/6049/UQoXWP.png" width="800" border="0"><br><br>
+Dashboard creator - The drag and drop feature allows users to add metrics onto the dashboard:<br>
+<img src="https://imagizer.imageshack.com/img922/9135/yU5s5a.png" width="800" border="0"><br><br>
 
-Metrics catalogue - A holistic catalogue of metrics & RAW data available for projects on different levels of depth (L0, L1, L2 & dApps):<br>
-<img src="https://imagizer.imageshack.com/img924/3411/YNuNwG.png" width="800" border="0"><br><br>
+Layout composer - Allowing for an easy modification of the dashboard's layout:
+<img src="https://imagizer.imageshack.com/img922/9879/LgeThz.png" width="800" border="0"><br><br>
+
+<img src="https://imagizer.imageshack.com/img923/5586/pAvjqF.png" width="800" border="0"><br><br>
+
 
 **Technology Stack:**
 
@@ -138,41 +138,6 @@ Metrics catalogue - A holistic catalogue of metrics & RAW data available for pro
 * BI analytics tools
 * Cloud hosting and scalable infrastructure
 
-### Data ETL
-
-Having built an existing version of Tokenguard App (tracking +7 parachains now), our team is aware of the data-processing challenges that need to be solved in order to deliver a user-friendly experience. These can be divided into 2 categories:
-
-  
-
-#### 1\. RAW data ETL
-
-In order to maintain an on-chain analytical tool covering the entire ecosystem, it is necessary to index, store, maintain and process data from relay chains and nearly a hundred parachains with different pallets, the number of which is constantly growing.
-
-  
-
-We are in the process of working out the most optimal solution with the Parity team to cover the maintenance costs with the [Polkadot Data Alliance Parent Bounty (WIP)](https://docs.google.com/document/d/1fA5ARHy-frzgZC66rniKZ5o7CSbDvCTkS--kWaMzuMs/edit#), taking into consideration the following solutions:
-
-*   Indexing and storing the data in-house - which offers a high quality experience for the end-user due to possibility of pre-aggregating the data and working out the ETL process so that the data is displayed almost real-time.
-*   Using SubSquid archives - dependent on the SubSquid business model regarding its data distribution model in the future.
-*   Using substrate-etl - dependent on the quality and availability of the data. Currently the data has a significant delay, potentially decreasing the usability of the data. Additionally, due to the size of relay chains history, querying the data through BigQuery is extremely expensive.
-
-The best model is yet to be decided with Polkadot Data Alliance and will be a matter of discussion after the PoC is designed.
-
-  
-
-#### 2\. User data ETL
-
-Polkadot & Kusama ecosystems have over 1.4m wallets within their networks with more than 15% being active over the last 30 days. Including the biggest parachains (Acala, Moonbeam, Astar) this number increases to almost 4m wallets. With a safe assumption that only 1% of users (developers, analysts, investors, whales, managers) will use data analytics, the infrastructure of this solution should be able to process requests from at least 40k users. Each user previews on average 5 dashboards, each with 8 to 12 metrics, using different filters (Tokenguard internal data). This boils down to at least 1.6m user-generated queries per month.
-
-  
-
-In order to process all these queries, solution needs to have a well-designed queuing mechanism as well as an infrastructure allowing for automated scaling. In order to achieve this, our team will design an infrastructure using the following tools:
-
-*   Kubernetes as an orchestration tool, allowing for automated up and down-scaling of processing and memory instances,
-*   Apache Spark allowing to process queries from different tables and databases simultaneously, which would make possible to display data & metrics from numerous parachains & dApps.
-*   Amazon Redshift allowing to easily access RAW data and create separate pipelines for metrics requiring slow and fast refreshing. This would allow to deliver new useful features to community users, such as a real-time API and notifications.
-
-  
 
 
 ### Other Proposals Comparison
@@ -181,9 +146,10 @@ In order to process all these queries, solution needs to have a well-designed qu
 
 [RFP](https://grants.web3.foundation/docs/RFPs/Under%20Development/analysis-website-and-data-platform) has been partially addressed by other teams in the proposals [#1716](https://github.com/w3f/Grants-Program/pull/1716) [#1768](https://github.com/w3f/Grants-Program/pull/1768) [#1748](https://github.com/w3f/Grants-Program/pull/1748) [#1815](https://github.com/w3f/Grants-Program/pull/1815) and work is underway to solve it. Being aware of how wide and complex the area of data analysis is, in our solution, we wanted to refer to the issues and propose modules that have not yet been built, but will complement the ongoing work.
 
-Compared to the following, Tokenguard in this proposal provides both a user-friendly no-code query editor and SQL query editor; visualization creator and dashboard composer - which UX / UI is designed in an accessible way, reaching a wide audience; sharing feature that allows for efficient sharing of created metrics and better data analysis.
+Compared to the following, Tokenguard in this proposal provides both a user-friendly no-code dashboard composer and visualisation composer - which UX / UI is designed in an accessible way, reaching a wide audience.
 
-While:
+Features created in this proposal will support other data-related projects, making it easier for them to attract Polkadot & Kusama users:
+
 * [#1716](https://github.com/w3f/Grants-Program/pull/1716) - is an ETL tool that focuses on delivering the Polkadot ecosystem data to a wide audience using Google BigQuery service.
 
 * [#1768](https://github.com/w3f/Grants-Program/pull/1768) - is an ETL tool focused on deep account analytics challenges.
@@ -282,11 +248,13 @@ Tokenguard is currently developing the following features:
 
 ## Development Roadmap 🔩
 
-Having a lot of experience in building web3 products, our team is aware that there are many challenges behind building a fully functional analytics platform similar to Dune for an ecosystem as vast and diverse as Polkadot & Kusama. We acknowledge the fact that a lot of questions need to be answered and W3F requirements need to be specified to fully estimate the cost of creating such a solution that will be **easily upgradable and basically - fun for users**. We therefore propose to split the work on the project into 2 grants / proposals:
-* PoC and maintenance cost estimation
-* Fully functional platform
+Having a lot of experience in building web3 products, our team is aware that there are many challenges behind building a fully functional analytics platform similar to Dune for an ecosystem as vast and diverse as Polkadot & Kusama. We acknowledge the fact that a lot of questions need to be answered and W3F requirements need to be specified to fully estimate the cost of creating such a solution that will be **easily upgradable and basically - fun for users**. We therefore propose to split the work on the project into 3 composable grants / proposals:
 
-This proposal is the first part that is solely focused on preparation of the PoC, defining the requirements of the final solution and estimating its production and maintenance costs. As an effect, we will be able to prepare a well thought out second proposal that will include all the expected features and cover all costs to deliver a user-engaging product.
+* Dashboard builder
+* Metrics creator & catalogue
+* Universal data model & ETL (work underway from other projects)
+
+This proposal is the first part that is solely focused on preparation of the dashboard creator, helping us and other teams deliver the data to users in an attractive form. 
 
 
 ### Overview
@@ -295,10 +263,10 @@ This proposal is the first part that is solely focused on preparation of the PoC
 *  **Total Costs:** 30,000 USD
 
 
-### Milestone 1: Data and design for PoC
+### Milestone 1: Frontend
 *  **Estimated duration:** 1 month
-*  **FTE:** 1.5
-*  **Costs:** 15,000 USD
+*  **FTE:** 2.0
+*  **Costs:** 20,000 USD
 
 
 
