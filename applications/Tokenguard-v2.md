@@ -66,14 +66,13 @@ Features that will be built using this specific grant are **bolded**.
 		1. List of projects on different depths (L0, L1, L2)
 		2. List of RAW tables available for these projects
 		3. List of comparable metrics for these projects
-
-3. Dashboards
-	- Making it possible for people to create & share dashboards with their own metrics:
-		1. Providing a description and schema of required API response. The response consists of all possible measures and dimensions for future visualization.
-		2. Creating a frontend which allows user to select series of data for axis X and Y for visualization.
-		3. Allowing user to select type of visualization for the data among 5 types (linechart, barchart, piechart, multiline chart, stacked barchart).
-		4. Designing frontend to layout visualizations on canvas (using drag & drop or any other method that is more comfortable for the user).
-		5. Saving dashboard related data on backend to allow frontend transform database metrics into attractive visualisations.
+3. **Dashboards**
+	- **Making it possible for people to create & share dashboards with their own metrics:**
+		1. **Providing a description and schema of required API response. The response consists of all possible measures and dimensions for future visualization.**
+		2. **Creating a frontend which allows user to select series of data for axis X and Y for visualization.**
+		3. **Allowing user to select type of visualization for the data among 5 types (linechart, barchart, piechart, multiline chart, stacked barchart).**
+		4. **Designing frontend to layout visualizations on canvas (using drag & drop or any other method that is more comfortable for the user).**
+		5. **Saving dashboard related data on backend to allow frontend transform database metrics into attractive visualisations.**
 	
 4. Users
 	- Creating a user subpage with a list of users' dashboards & metrics
