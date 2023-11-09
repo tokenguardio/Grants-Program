@@ -46,7 +46,7 @@ With the aim of ensuring extensive accessibility across the Substrate community 
 
 To meet the expectations of Polkadot and Kusama community and the suggestions contained in the RFP, we propose a **comprehensive analytics tool consisting of**  **a query builder, visualization creator and dashboard composer for Polkadot & Kusama ecosystems** - the creation of which requires the implementation of the following features. 
 
-Features that will be built using this specific grant are **bolded**.
+Features that will be built using this specific grant are **in bold**.
 
 1. Data model:
 	- Creating a RAW data access that would categorize data depending on its depth:
